@@ -1,19 +1,17 @@
-package com.example.staffmanagement.model;
-import jakarta.persistence.*;
+package com.example.staffmanagement.dto.request;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Entity
 @Getter
 @Setter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Manager {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class ManagerRegisterRequest {
     @NotNull
     private String managerId;
     private String name;

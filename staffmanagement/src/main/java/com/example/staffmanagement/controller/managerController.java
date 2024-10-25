@@ -1,9 +1,9 @@
 package com.example.staffmanagement.controller;
 import com.example.staffmanagement.dto.request.ManagerLoginRequest;
+import com.example.staffmanagement.dto.request.ManagerUpdateRequest;
 import com.example.staffmanagement.dto.response.ManagerLoginResponse;
 import com.example.staffmanagement.model.Manager;
 import com.example.staffmanagement.service.ServiceImplemetation.managerServiceImpl;
-import com.example.staffmanagement.service.managerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,8 +33,13 @@ public class managerController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<?> updateManagerDetails(@RequestBody Manager manager) {
-        return new ResponseEntity<>(managerServiceImpl.registerManager(manager), HttpStatus.OK);
+    public ResponseEntity<?> updateManagerDetails(@RequestBody ManagerUpdateRequest managerUpdateRequest) {
+        return new ResponseEntity<>(managerServiceImpl.updateManager(managerUpdateRequest), HttpStatus.OK);
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<?> findAllManagers() {
+       return new ResponseEntity<>(managerServiceImpl.findAllManagers(),HttpStatus.OK);
     }
 
     // This endpoint retrieves a manager's details based on the manager ID provided in the URL path.
@@ -45,8 +50,13 @@ public class managerController {
 
     // This endpoint deletes a manager based on their manager ID provided in the URL path.
     @DeleteMapping("/delete/{managerId}")
-    public ResponseEntity<?> deleteManager(@PathVariable Integer managerId) {
-        // userService.deleteUser(managerId);
-        return new ResponseEntity<>("Deleted", HttpStatus.NO_CONTENT);
+    public ResponseEntity<String> deleteManager(@PathVariable String managerId) {
+        boolean isDeleted = managerServiceImpl.deleteManagerById(managerId);
+        if (isDeleted) {
+            return ResponseEntity.ok("Manager deleted successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Manager not found");
+        }
     }
+
 }

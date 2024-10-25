@@ -1,6 +1,8 @@
 package com.example.staffmanagement.service.ServiceImplemetation;
-
+import com.example.staffmanagement.dto.request.ManagerUpdateRequest;
+import com.example.staffmanagement.dto.response.ApiResponse;
 import com.example.staffmanagement.dto.response.ManagerLoginResponse;
+import com.example.staffmanagement.exceptionHandling.ManagerNotFoundException;
 import com.example.staffmanagement.exceptionHandling.UserNotFoundException;
 import com.example.staffmanagement.model.Manager;
 import com.example.staffmanagement.repository.managerRepository;
@@ -73,14 +75,43 @@ public class managerServiceImpl implements managerService {
     }
 
     @Override
-    public Manager updateManager(Manager manager) {
-        return managerRepo.save(manager);
+    public ApiResponse updateManager(ManagerUpdateRequest managerUpdateRequest) {
+        Manager existingManager = managerRepo.findByManagerId(managerUpdateRequest.getManagerId());
+        Manager updatedManager;
+        if (existingManager == null) {
+            logger.warn("Manager not found for ID={}", managerUpdateRequest.getManagerId());
+            throw new ManagerNotFoundException("Manager not found for ID=" + managerUpdateRequest.getManagerId());
+        }
+        else{
+        // Update manager's fields
+        existingManager.setManagerId(managerUpdateRequest.getManagerId());
+        existingManager.setName(managerUpdateRequest.getName());
+        existingManager.setEmail(managerUpdateRequest.getEmail());
+
+        // Save the updated manager to the repository
+            // Save the updated manager
+            updatedManager = managerRepo.save(existingManager);
+
+            // Log the update
+            logger.info("Manager updated: ID={}, Name={}", updatedManager.getManagerId(), updatedManager.getName());
+            // Return an API response with the message and the updated manager data
+        }
+        return new ApiResponse(true, "Manager updated successfully");
     }
 
-
-
     @Override
-    public void deleteManagerById(int id) {
-        managerRepo.delete(findManagerById(id));
+    public boolean deleteManagerById(String managerId) {
+        Manager manager= managerRepo.findByManagerId(managerId);
+        System.out.println(manager);
+        if (manager !=null) {
+            managerRepo.delete(manager);
+            logger.info("Manager deleted: ID={}", managerId);
+            return true;
+        }
+        else {
+            logger.warn("Manager not found for ID={}", managerId);
+            return false;
+        }
+
     }
 }
