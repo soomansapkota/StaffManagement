@@ -1,5 +1,6 @@
 package com.example.staffmanagement.controller;
 import com.example.staffmanagement.dto.request.ManagerLoginRequest;
+import com.example.staffmanagement.dto.request.ManagerRegisterRequest;
 import com.example.staffmanagement.dto.request.ManagerUpdateRequest;
 import com.example.staffmanagement.dto.response.ManagerLoginResponse;
 import com.example.staffmanagement.model.Manager;
@@ -28,8 +29,8 @@ public class managerController {
 
     // This endpoint is used to register a new manager by accepting their details in the request body.
     @PostMapping("/register")
-    public ResponseEntity<?> saveManagerDetails(@RequestBody Manager manager) {
-        return new ResponseEntity<>(managerServiceImpl.registerManager(manager), HttpStatus.OK);
+    public ResponseEntity<?> saveManagerDetails(@RequestBody ManagerRegisterRequest managerRegisterRequest) {
+        return new ResponseEntity<>(managerServiceImpl.registerManager(managerRegisterRequest), HttpStatus.OK);
     }
 
     @PostMapping("/update")

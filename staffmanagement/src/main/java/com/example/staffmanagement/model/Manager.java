@@ -14,7 +14,7 @@ public class Manager {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotNull
+    @NotNull(message="Manager Id cannot be empty")
     private String managerId;
     private String name;
     private String password;
