@@ -1,10 +1,10 @@
 package com.example.staffmanagement.service;
 
-import com.example.staffmanagement.dto.request.ManagerRegisterRequest;
-import com.example.staffmanagement.dto.request.ManagerUpdateRequest;
-import com.example.staffmanagement.dto.response.ApiResponse;
-import com.example.staffmanagement.dto.response.ManagerLoginResponse;
-import com.example.staffmanagement.dto.response.ManagerRegisterResponse;
+import com.example.staffmanagement.dto.manager.request.ManagerRegisterRequest;
+import com.example.staffmanagement.dto.manager.request.ManagerUpdateRequest;
+import com.example.staffmanagement.dto.manager.response.ApiResponse;
+import com.example.staffmanagement.dto.manager.response.ManagerLoginResponse;
+import com.example.staffmanagement.dto.manager.response.ManagerRegisterResponse;
 import com.example.staffmanagement.model.Manager;
 import org.springframework.stereotype.Service;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.staffmanagement.dto.request;
+package com.example.staffmanagement.dto.manager.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;

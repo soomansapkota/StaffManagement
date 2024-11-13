@@ -1,5 +1,6 @@
-package com.example.staffmanagement.dto.request;
+package com.example.staffmanagement.dto.manager.request;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,8 +11,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ManagerLoginRequest {
+public class ManagerUpdateRequest {
     @NotNull
     private String managerId;
-    private String password;
+    private String name;
+    @Email
+    private String email;
 }

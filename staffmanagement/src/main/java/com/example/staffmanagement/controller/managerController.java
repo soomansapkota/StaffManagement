@@ -1,21 +1,30 @@
 package com.example.staffmanagement.controller;
-import com.example.staffmanagement.dto.request.ManagerLoginRequest;
-import com.example.staffmanagement.dto.request.ManagerRegisterRequest;
-import com.example.staffmanagement.dto.request.ManagerUpdateRequest;
-import com.example.staffmanagement.dto.response.ManagerLoginResponse;
-import com.example.staffmanagement.model.Manager;
+import com.example.staffmanagement.dto.manager.request.ManagerLoginRequest;
+import com.example.staffmanagement.dto.manager.request.ManagerRegisterRequest;
+import com.example.staffmanagement.dto.manager.request.ManagerUpdateRequest;
+import com.example.staffmanagement.dto.manager.response.ManagerLoginResponse;
+import com.example.staffmanagement.mapper.ManagerMapper;
 import com.example.staffmanagement.service.ServiceImplemetation.managerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000" , allowedHeaders = "*", allowCredentials = "true")
 @RequestMapping("/api/v1/manager")
 public class managerController {
 
     @Autowired
     private managerServiceImpl managerServiceImpl;
+
+    @Autowired
+    private ManagerMapper managerMapper;
+    @Qualifier("managerService")
+    @Autowired
+    private com.example.staffmanagement.service.managerService managerService;
+
 
     // This endpoint is used to authenticate a manager by their ID and password.
     @PostMapping("/login")
@@ -33,14 +42,28 @@ public class managerController {
         return new ResponseEntity<>(managerServiceImpl.registerManager(managerRegisterRequest), HttpStatus.OK);
     }
 
-    @PostMapping("/update")
+//    @PutMapping("/update/{managerId}")
+//    public ResponseEntity<Manager> updateManager(
+//            @PathVariable Long managerId,
+//            @RequestBody Manager updatedData) {
+//        try {
+//            Manager updatedManager = managerService.updateManager(managerId, updatedData);
+//            return ResponseEntity.ok(updatedManager);
+//        } catch (ManagerNotFoundException e) {
+//            return ResponseEntity.notFound().build();
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//        }
+//    }
+
+    @PostMapping("/update/{managerId}")
     public ResponseEntity<?> updateManagerDetails(@RequestBody ManagerUpdateRequest managerUpdateRequest) {
         return new ResponseEntity<>(managerServiceImpl.updateManager(managerUpdateRequest), HttpStatus.OK);
     }
 
     @GetMapping("/getAll")
     public ResponseEntity<?> findAllManagers() {
-       return new ResponseEntity<>(managerServiceImpl.findAllManagers(),HttpStatus.OK);
+       return new ResponseEntity<>(managerMapper.managerListToDtoList(managerServiceImpl.findAllManagers()),HttpStatus.OK);
     }
 
     // This endpoint retrieves a manager's details based on the manager ID provided in the URL path.

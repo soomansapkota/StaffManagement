@@ -1,5 +1,8 @@
-package com.example.staffmanagement.dto.request;
+package com.example.staffmanagement.dto;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -11,10 +14,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ManagerUpdateRequest {
-    @NotNull
+public class ManagerDTO {
+    private Integer id;
     private String managerId;
     private String name;
-    @Email
     private String email;
 }

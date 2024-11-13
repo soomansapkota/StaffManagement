@@ -1,4 +1,4 @@
-package com.example.staffmanagement.dto.response;
+package com.example.staffmanagement.dto.manager.response;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

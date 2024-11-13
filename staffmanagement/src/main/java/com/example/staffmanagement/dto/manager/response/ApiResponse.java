@@ -1,4 +1,4 @@
-package com.example.staffmanagement.dto.response;
+package com.example.staffmanagement.dto.manager.response;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
