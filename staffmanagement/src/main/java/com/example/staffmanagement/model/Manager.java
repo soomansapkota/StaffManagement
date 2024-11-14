@@ -15,6 +15,7 @@ public class Manager {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotNull(message="Manager Id cannot be empty")
+    @Column(unique=true)
     private String managerId;
     private String name;
     private String password;

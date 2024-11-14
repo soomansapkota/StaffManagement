@@ -8,10 +8,10 @@ import lombok.Setter;
 @Table
 @Getter
 @Setter
-public class address {
+public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer address_id;
     private String state;
     private String city;
     private String street;
